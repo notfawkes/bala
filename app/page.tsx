@@ -286,7 +286,7 @@ function ExperienceHeading() {
             <div className="text-foreground/100-500 dark:text-foreground/100-400 text-xl md:text-3xl max-w-3xl">
               I am currently pursuing Artificial Intelligence and Machine Learning Engineering at{" "}
               <LinkPreview
-                url="https://tcetmumbai.in"
+                url="https://bala-ten.vercel.app/"
                 imageSrc="/images/TCET.jpeg"
                 isStatic
                 className="font-bold"
@@ -299,7 +299,7 @@ function ExperienceHeading() {
             <div className="text-foreground/100-500 dark:text-foreground/100-400 text-xl md:text-3xl max-w-3xl">
               I am a passionate{" "}
               <LinkPreview
-                url="/templates"
+                url="/projects"
                 imageSrc="/images/Full-Stack.png"
                 isStatic
                 className="font-bold"

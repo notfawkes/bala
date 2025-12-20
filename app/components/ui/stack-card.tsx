@@ -105,5 +105,5 @@ const card: React.CSSProperties = {
 
 const food: [string, number, number, string][] = [
     ["/images/Jt_Tech.jpg", 24, 45, "experience/jt-tech"],
-    ["/images/internship.png", 24, 45, "experience/internship"],
+    ["/images/Internship.png", 24, 45, "experience/internship"],
 ]
