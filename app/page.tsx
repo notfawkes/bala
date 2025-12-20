@@ -13,7 +13,10 @@ import { AnimatedFolder } from "./components/ui/3d-folder";
 import { Timeline } from "./components/ui/TimelineEntry";
 import { projects } from "@/lib/projects";
 import Image from "next/image";
-import StickerPeel from './components/ui/StickerPeel';
+import { HoverSlider,
+  HoverSliderImage,
+  HoverSliderImageWrap,
+  TextStaggerHover } from "./components/animated-slideshow"
 import {
   Twitter,
   Linkedin,
@@ -27,6 +30,39 @@ import {
   SiTypescript,
   SiTailwindcss,
 } from "react-icons/si";
+
+  const SLIDES = [
+  {
+    id: "slide-1",
+    title: "frontend dev",
+    imageUrl:
+      "https://images.unsplash.com/photo-1654618977232-a6c6dea9d1e8?q=80&w=2486&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: "slide-2",
+    title: "backend dev",
+    imageUrl:
+      "https://images.unsplash.com/photo-1624996752380-8ec242e0f85d?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: "slide-6",
+    title: "UI UX design",
+    imageUrl:
+      "https://images.unsplash.com/photo-1688733720228-4f7a18681c4f?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: "slide-3",
+    title: "video editing",
+    imageUrl:
+      "https://images.unsplash.com/photo-1574717025058-2f8737d2e2b7?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: "slide-4",
+    title: "SEO optimization",
+    imageUrl:
+      "https://images.unsplash.com/photo-1726066012698-bb7a3abce786?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+]
 
   const data = [
     {
@@ -273,7 +309,7 @@ function ExperienceHeading() {
             <div className="text-foreground dark:text-foreground text-xl md:text-3xl max-w-3xl">
               Hello everyone, I’m{" "}
               <LinkPreview
-                url="https://ui.aceternity.com"
+                url="https://bala-ten.vercel.app/"
                 imageSrc="/images/Bala-Banner.jpg"
                 isStatic
                 className="font-bold bg-clip-text"
@@ -286,7 +322,7 @@ function ExperienceHeading() {
             <div className="text-foreground/100-500 dark:text-foreground/100-400 text-xl md:text-3xl max-w-3xl">
               I am currently pursuing Artificial Intelligence and Machine Learning Engineering at{" "}
               <LinkPreview
-                url="https://bala-ten.vercel.app/"
+                url="https://www.tcetmumbai.in/"
                 imageSrc="/images/TCET.jpeg"
                 isStatic
                 className="font-bold"
@@ -334,19 +370,35 @@ function ExperienceHeading() {
   <div className="flex justify-center pt-12 pb-8 text-primary">
     <HandWrittenTitle title="Projects" />
   </div>
-
-  <div className="w-full max-w-7xl mx-auto">
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-      <AnimatedFolder title="Featured" projects={projects} className="text-foreground" />
-      <div className="flex flex-col justify-center">
-        <h3 className="text-2xl font-semibold mb-4">More projects</h3>
-        <p className="text-muted-foreground mb-6">Explore the full project gallery including case studies, demos, and source links.</p>
-        <div className="flex gap-4">
-          <a href="/projects" className="px-4 py-2 rounded bg-accent text-white">View All Projects</a>
+    <HoverSlider className="p-6 md:px-12 bg-background text-foreground">
+      <div className="flex flex-wrap items-center justify-evenly gap-6 md:gap-12">
+        <div className="flex  flex-col space-y-2 md:space-y-4   ">
+          {SLIDES.map((slide, index) => (
+            <TextStaggerHover
+              key={slide.title}
+              index={index}
+              className="cursor-pointer text-4xl font-bold uppercase tracking-tighter"
+              text={slide.title}
+            />
+          ))}
         </div>
+        <HoverSliderImageWrap className="bg-background">
+          {SLIDES.map((slide, index) => (
+            <div key={slide.id} className="  ">
+              <HoverSliderImage
+                index={index}
+                imageUrl={slide.imageUrl}
+                src={slide.imageUrl}
+                alt={slide.title}
+                className="size-full max-h-96 object-cover"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+          ))}
+        </HoverSliderImageWrap>
       </div>
-    </div>
-  </div>
+    </HoverSlider>
 </section>
 
 
