@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+:root {
+  --background: #EBD5AB;
+  --foreground: #1B211A;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+  --background: #EBD5AB;
+  --foreground: #1B211A;
+  }
+}
+
+:root {
+  --font-myfont: sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section,
+[target],
+:target {
+  scroll-margin-top: 6rem;
+}
+
+* {
+  cursor: none !important;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-myfont);
+}
+
+.pop-navbar {
+  position: relative;
+  z-index: 50;
+  backdrop-filter: blur(6px);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.bg-hero {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media (min-width: 768px) {
+  .bg-hero {
+    background-size: cover;
+  }
+}
+
+
+
+
+
+
+
