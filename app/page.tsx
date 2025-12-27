@@ -9,9 +9,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Footer } from "./components/ui/modem-animated-footer";
 import {LinkPreview} from "./components/ui/LinkPreview";
 import { HandWrittenTitle } from "./components/HandwrittenTitle";
-import { AnimatedFolder } from "./components/ui/3d-folder";
 import { Timeline } from "./components/ui/TimelineEntry";
-import { projects } from "@/lib/projects";
 import Image from "next/image";
 import { HoverSlider,
   HoverSliderImage,
@@ -34,33 +32,29 @@ import {
   const SLIDES = [
   {
     id: "slide-1",
-    title: "frontend dev",
+    title: "Mallu Magic",
     imageUrl:
-      "https://images.unsplash.com/photo-1654618977232-a6c6dea9d1e8?q=80&w=2486&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "/images/Mallu-Magic.png",
+    href: "projects/mallu-magic",
+    target: "_blank",
   },
   {
     id: "slide-2",
-    title: "backend dev",
+    title: "Delhigrubs",
     imageUrl:
-      "https://images.unsplash.com/photo-1624996752380-8ec242e0f85d?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "/images/Delhi-grubs.png",
   },
   {
     id: "slide-6",
-    title: "UI UX design",
+    title: "ACM-SIGAI-Web",
     imageUrl:
-      "https://images.unsplash.com/photo-1688733720228-4f7a18681c4f?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "/images/ACM-Web.png",
   },
   {
     id: "slide-3",
-    title: "video editing",
+    title: "ACM-SIGAI-App",
     imageUrl:
-      "https://images.unsplash.com/photo-1574717025058-2f8737d2e2b7?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: "slide-4",
-    title: "SEO optimization",
-    imageUrl:
-      "https://images.unsplash.com/photo-1726066012698-bb7a3abce786?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "/images/ACM-App.png",
   },
 ]
 
@@ -249,7 +243,7 @@ function ExperienceHeading() {
 
 
   return (
-    <div className="relative w-full overflow-hidden">
+    <div className="relative min-h-dvh w-full overflow-hidden">
       <section
         id="home"
         className="relative min-h-dvh w-full text-white bg-cover bg-center bg-no-repeat bg-hero"
@@ -304,7 +298,6 @@ function ExperienceHeading() {
               </div>
             </div>
           </div>
-          {/* Right Text */}
           <div className="flex flex-col justify-center space-y-8 font-serif">
             <div className="text-foreground dark:text-foreground text-xl md:text-3xl max-w-3xl">
               Hello everyone, I’m{" "}
@@ -387,8 +380,8 @@ function ExperienceHeading() {
             <div key={slide.id} className="  ">
               <HoverSliderImage
                 index={index}
-                imageUrl={slide.imageUrl}
                 src={slide.imageUrl}
+                href={slide.href as "_self" | "_blank" | undefined}
                 alt={slide.title}
                 className="size-full max-h-96 object-cover"
                 loading="eager"

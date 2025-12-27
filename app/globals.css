@@ -10,7 +10,40 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  /* --animate-meteor: meteor 5s linear infinite;
+
+    @keyframes meteor {
+    0% {
+      transform: rotate(var(--angle)) translateX(0);
+      opacity: 1;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(var(--angle)) translateX(-500px);
+      opacity: 0;
+    }
+  } */
 }
+
+@keyframes meteor {
+  0% {
+    transform: rotate(var(--angle)) translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(var(--angle)) translateX(-1200px);
+    opacity: 0;
+  }
+}
+
+.animate-meteor {
+  animation-name: meteor;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -36,6 +69,13 @@ section,
 * {
   cursor: none !important;
 }
+
+.iframeWrapper:hover ~ .custom-cursor,
+  .iframeWrapper:hover #custom-cursor {
+    opacity: 0;
+    visibility: hidden;
+  }
+
 
 body {
   background: var(--background);
@@ -63,6 +103,175 @@ body {
     background-size: cover;
   }
 }
+
+.page {
+  min-height: 100vh;
+  padding: 1.5rem;
+  background: var(--background);
+  color: var(--foreground);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.title {
+  text-align: center;
+  font-size: 7rem;
+  font-weight: 600;
+}
+
+/* Iframe section */
+.iframeWrapper {
+  width: 100%;
+  height: 100vh;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgb(13, 74, 2);
+}
+
+.iframeWrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.parent {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 1fr;
+  gap: 12px;
+  height: 500px;
+}
+
+/* Left grid */
+.left {
+  grid-column: span 9 / span 9;
+  --circle-r: 13px /*input*/;
+  --big-circle-r: 30px /*input*/;
+  --pillar-size: max(34px /*input*/, var(--circle-r));
+  --card-color: #628141 /*input*/;
+  --card-shadow: 0 10px 48px rgba(21, 44, 115, 0.15) /*input*/;
+}
+
+/* Right grid */
+.right {
+  grid-column: span 3 / span 3;
+  background: transparent;
+  border-radius: 18px;
+  padding: 1rem;
+  backdrop-filter: blur(2px);
+}
+
+/* Matte card styling */
+.matte-card {
+  border-radius: 18px;
+  padding: 1rem;
+  background: rgb(98, 129, 65);
+  backdrop-filter: blur(2px);
+}
+
+/* Right grid marquee container */
+.marquee-container {
+  position: relative;
+  overflow: hidden;
+
+  /* Vertical fade (top + bottom opacity) */
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 15%,
+    black 85%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 15%,
+    black 85%,
+    transparent 100%
+  );
+}
+
+/* Marquee track */
+.marquee {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: scroll-vertical 18s linear infinite;
+}
+
+/* Images */
+.marquee img {
+  width: 100%;
+  border-radius: 14px;
+  object-fit: cover;
+  background: rgba(27, 33, 26, 0.06);
+}
+
+/* Vertical scroll animation */
+@keyframes scroll-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+
+.cutout-card {
+  --circle-d: calc(var(--circle-r) * 2);
+  --circles-space: calc(var(--big-circle-r) + var(--pillar-size));
+  --circle-extend-inset: calc(var(--circle-r) + var(--circles-space));
+  --pillar-right: 64px;  
+  --pillar-top: var(--pillar-size); 
+
+
+  position: relative;
+  border-top-right-radius: 0;
+  filter: drop-shadow(var(--card-shadow));
+  background: 
+      /* Top Circle  */ radial-gradient(
+        circle closest-side,
+        var(--card-color) 100%,
+        transparent calc(100% + 1px)
+      )
+      calc(100% - var(--circles-space)) 0 / var(--circle-d) var(--circle-d)
+      no-repeat no-repeat,
+    /* Top Circle Extend */
+      linear-gradient(0deg, var(--card-color) 100%, var(--card-color) 100%) 0px
+      0px / calc(100% - var(--circle-extend-inset)) var(--circle-d) no-repeat
+      no-repeat,
+    /* Top Gap fill Pillar */
+      linear-gradient(0deg, var(--card-color) 100%, var(--card-color) 100%) 0px
+      var(--circle-r) / calc(100% - var(--circles-space))
+      calc(100% - var(--circle-r)) no-repeat no-repeat,
+    /* Right Circle */
+      radial-gradient(
+        circle closest-side,
+        var(--card-color) 100%,
+        transparent calc(100% + 1px)
+      )
+      100% var(--circles-space) / var(--circle-d) var(--circle-d) no-repeat
+      no-repeat,
+    /* Right Circle Extend  */
+      linear-gradient(0deg, var(--card-color) 100%, var(--card-color) 100%) 100%
+      var(--circle-extend-inset) / var(--circle-d) 100% no-repeat no-repeat,
+    /* Right Gap fill Pillar */
+      linear-gradient(0deg, var(--card-color) 100%, var(--card-color) 100%) 0
+      var(--circles-space) / calc(100% - var(--circle-r)) 100% no-repeat
+      no-repeat,
+    /* Big Circle Cutout */
+      radial-gradient(
+        circle at 100% 0%,
+        transparent var(--big-circle-r),
+        var(--card-color) calc(var(--big-circle-r) + 1px)
+      )
+      0px var(--pillar-size) / calc(100% - var(--pillar-size)) 100% no-repeat
+      no-repeat;
+}
+
+
 
 
 

@@ -18,6 +18,8 @@ export interface SmoothCursorProps {
   }
 }
 
+
+
 const DefaultCursorSVG: FC = () => {
   return (
     <svg
@@ -108,6 +110,29 @@ export function SmoothCursor({
     stiffness: 500,
     damping: 35,
   })
+
+  useEffect(() => {
+  const iframe = document.querySelector(".iframeWrapper");
+
+  if (!iframe) return;
+
+  const hideCursor = () => {
+    document.body.classList.add("hide-custom-cursor");
+  };
+
+  const showCursor = () => {
+    document.body.classList.remove("hide-custom-cursor");
+  };
+
+  iframe.addEventListener("mouseenter", hideCursor);
+  iframe.addEventListener("mouseleave", showCursor);
+
+  return () => {
+    iframe.removeEventListener("mouseenter", hideCursor);
+    iframe.removeEventListener("mouseleave", showCursor);
+  };
+}, []);
+
 
   useEffect(() => {
     const updateVelocity = (currentPos: Position) => {

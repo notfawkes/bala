@@ -1,6 +1,6 @@
-import Preloader from "./components/Preloader";
 import "./globals.css";
 import localFont from "next/font/local";
+
 import { SmoothCursor } from "./components/ui/smooth-cursor";
 import ScrollToHash from "./components/ScrollToHash";
 
@@ -16,19 +16,21 @@ const myFont = localFont({
 });
 
 export const metadata = {
-  title: "Bala Sudalaimuthu"
+  title: "Bala Sudalaimuthu",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <>
-      <SmoothCursor />
-      <ScrollToHash />
-      <html lang="en" className={myFont.variable}>
-        <body suppressHydrationWarning={true}>
-          {children}
-        </body>
-      </html>
-    </>
+    <html lang="en" className={myFont.variable}>
+      <body suppressHydrationWarning className="relative overflow-x-hidden">
+        <SmoothCursor />
+        <ScrollToHash />
+        {children}
+      </body>
+    </html>
   );
 }

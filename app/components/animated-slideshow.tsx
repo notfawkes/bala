@@ -1,103 +1,116 @@
-"use client" 
+"use client"
 
 import * as React from "react"
+import type { StaticImageData } from "next/image"
 import { HTMLMotionProps, MotionConfig, motion } from "motion/react"
 import { cn } from "@/lib/utils"
+
+/* -------------------------------------------------------------------------- */
+/* Types                                                                      */
+/* -------------------------------------------------------------------------- */
 
 interface TextStaggerHoverProps {
   text: string
   index: number
 }
+
 interface HoverSliderImageProps {
   index: number
-  imageUrl: string
+  src: string | StaticImageData
+  alt?: string
+  href?: string
+  target?: "_self" | "_blank"
 }
+
 interface HoverSliderProps {}
+
 interface HoverSliderContextValue {
   activeSlide: number
   changeSlide: (index: number) => void
 }
+
+/* -------------------------------------------------------------------------- */
+/* Utils                                                                      */
+/* -------------------------------------------------------------------------- */
+
 function splitText(text: string) {
   const words = text.split(" ").map((word) => word.concat(" "))
   const characters = words.map((word) => word.split("")).flat(1)
 
-  return {
-    words,
-    characters,
-  }
+  return { words, characters }
 }
 
-const HoverSliderContext = React.createContext<
-  HoverSliderContextValue | undefined
->(undefined)
+/* -------------------------------------------------------------------------- */
+/* Context                                                                    */
+/* -------------------------------------------------------------------------- */
+
+const HoverSliderContext =
+  React.createContext<HoverSliderContextValue | undefined>(undefined)
+
 function useHoverSliderContext() {
   const context = React.useContext(HoverSliderContext)
-  if (context === undefined) {
+  if (!context) {
     throw new Error(
-      "useHoverSliderContext must be used within a HoverSliderProvider"
+      "useHoverSliderContext must be used within a HoverSlider"
     )
   }
   return context
 }
 
+/* -------------------------------------------------------------------------- */
+/* Root                                                                       */
+/* -------------------------------------------------------------------------- */
+
 export const HoverSlider = React.forwardRef<
-  HTMLElement,
-  React.HTMLAttributes<HTMLElement> & HoverSliderProps
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & HoverSliderProps
 >(({ children, className, ...props }, ref) => {
-  const [activeSlide, setActiveSlide] = React.useState<number>(0)
-  const changeSlide = React.useCallback(
-    (index: number) => setActiveSlide(index),
-    [setActiveSlide]
-  )
+  const [activeSlide, setActiveSlide] = React.useState(0)
+
+  const changeSlide = React.useCallback((index: number) => {
+    setActiveSlide(index)
+  }, [])
+
   return (
     <HoverSliderContext.Provider value={{ activeSlide, changeSlide }}>
-      <div className={className}>{children}</div>
+      <div ref={ref} className={className} {...props}>
+        {children}
+      </div>
     </HoverSliderContext.Provider>
   )
 })
 HoverSlider.displayName = "HoverSlider"
 
-const WordStaggerHover = React.forwardRef<
-  HTMLSpanElement,
-  React.HTMLAttributes<HTMLSpanElement>
->(({ children, className, ...props }, ref) => {
-  return (
-    <span
-      className={cn("relative inline-block origin-bottom overflow-hidden")}
-      {...props}
-    >
-      {children}
-    </span>
-  )
-})
-WordStaggerHover.displayName = "WordStaggerHover"
+/* -------------------------------------------------------------------------- */
+/* Text Hover                                                                 */
+/* -------------------------------------------------------------------------- */
 
 export const TextStaggerHover = React.forwardRef<
   HTMLElement,
   React.HTMLAttributes<HTMLElement> & TextStaggerHoverProps
->(({ text, index, children, className, ...props }, ref) => {
+>(({ text, index, className, ...props }, ref) => {
   const { activeSlide, changeSlide } = useHoverSliderContext()
   const { characters } = splitText(text)
   const isActive = activeSlide === index
-  const handleMouse = () => changeSlide(index)
+
   return (
     <span
+      ref={ref}
       className={cn(
         "relative inline-block origin-bottom overflow-hidden",
         className
       )}
+      onMouseEnter={() => changeSlide(index)}
       {...props}
-      ref={ref}
-      onMouseEnter={handleMouse}
     >
-      {characters.map((char, index) => (
+      {characters.map((char, i) => (
         <span
-          key={`${char}-${index}`}
+          key={`${char}-${i}`}
           className="relative inline-block overflow-hidden"
         >
           <MotionConfig
             transition={{
-              delay: index * 0.025,
+              delay: i * 0.025,
               duration: 0.3,
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
@@ -108,7 +121,7 @@ export const TextStaggerHover = React.forwardRef<
               animate={isActive ? { y: "-110%" } : { y: "0%" }}
             >
               {char}
-              {char === " " && index < characters.length - 1 && <>&nbsp;</>}
+              {char === " " && i < characters.length - 1 && <>&nbsp;</>}
             </motion.span>
 
             <motion.span
@@ -126,14 +139,19 @@ export const TextStaggerHover = React.forwardRef<
 })
 TextStaggerHover.displayName = "TextStaggerHover"
 
+/* -------------------------------------------------------------------------- */
+/* Image Slider                                                               */
+/* -------------------------------------------------------------------------- */
+
 export const clipPathVariants = {
   visible: {
     clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
   },
   hidden: {
-    clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0px)",
+    clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
   },
 }
+
 export const HoverSliderImageWrap = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -142,7 +160,7 @@ export const HoverSliderImageWrap = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        "grid  overflow-hidden [&>*]:col-start-1 [&>*]:col-end-1 [&>*]:row-start-1 [&>*]:row-end-1 [&>*]:size-full",
+        "grid overflow-hidden [&>*]:col-start-1 [&>*]:col-end-1 [&>*]:row-start-1 [&>*]:row-end-1 [&>*]:size-full",
         className
       )}
       {...props}
@@ -151,20 +169,42 @@ export const HoverSliderImageWrap = React.forwardRef<
 })
 HoverSliderImageWrap.displayName = "HoverSliderImageWrap"
 
+/* -------------------------------------------------------------------------- */
+/* Image (with href support)                                                  */
+/* -------------------------------------------------------------------------- */
+
 export const HoverSliderImage = React.forwardRef<
   HTMLImageElement,
   HTMLMotionProps<"img"> & HoverSliderImageProps
->(({ index, imageUrl, children, className, ...props }, ref) => {
-  const { activeSlide } = useHoverSliderContext()
-  return (
-    <motion.img
-      className={cn("inline-block align-middle", className)}
-      transition={{ ease: [0.33, 1, 0.68, 1], duration: 0.8 }}
-      variants={clipPathVariants}
-      animate={activeSlide === index ? "visible" : "hidden"}
-      ref={ref}
-      {...props}
-    />
-  )
-})
+>(
+  (
+    { index, src, alt = "", href, target = "_self", className, ...props },
+    ref
+  ) => {
+    const { activeSlide } = useHoverSliderContext()
+
+    const resolvedSrc = typeof src === "string" ? src : src.src
+
+    const image = (
+      <motion.img
+        ref={ref}
+        src={resolvedSrc}
+        alt={alt}
+        className={cn("inline-block align-middle", className)}
+        transition={{ ease: [0.33, 1, 0.68, 1], duration: 0.8 }}
+        variants={clipPathVariants}
+        animate={activeSlide === index ? "visible" : "hidden"}
+        {...props}
+      />
+    )
+
+    if (!href) return image
+
+    return (
+      <a href={href} target={target} rel={target === "_blank" ? "noreferrer" : undefined}>
+        {image}
+      </a>
+    )
+  }
+)
 HoverSliderImage.displayName = "HoverSliderImage"
