@@ -29,6 +29,10 @@ import {
   SiTailwindcss,
 } from "react-icons/si";
 
+  const htmlContent = `
+    Hello, This is Bala Sudalaimuthu here!!
+  `;
+
   const SLIDES = [
   {
     id: "slide-1",
@@ -43,18 +47,24 @@ import {
     title: "Delhigrubs",
     imageUrl:
       "/images/Delhi-grubs.png",
+    href: "projects/Delhigrubs",
+    target: "_blank",
   },
   {
     id: "slide-6",
     title: "ACM-SIGAI-Web",
     imageUrl:
       "/images/ACM-Web.png",
+    href: "projects/ACM-Web",
+    target: "_blank",
   },
   {
     id: "slide-3",
     title: "ACM-SIGAI-App",
     imageUrl:
       "/images/ACM-App.png",
+    href: "projects/ACM-App",
+    target: "_blank",
   },
 ]
 
@@ -180,6 +190,10 @@ export default function Page() {
   const educationRef = useRef(null);
   const projectRef = useRef(null);
   const experienceRef = useRef(null);
+
+  useEffect(() => {
+    console.log(htmlContent); // prints HTML string to console
+  }, []);
 
   useEffect(() => {
     const img = new window.Image();

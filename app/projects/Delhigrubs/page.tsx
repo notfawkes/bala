@@ -14,7 +14,7 @@ const images = [
 export default function MalluMagicPage() {
   return (
     <main className="page">
-      <h1 className="title">Mallu Magic</h1>
+      <h1 className="title">Delhigrubs</h1>
 
       <div className="font-size-2xl">
         <h1>My Work: </h1>
