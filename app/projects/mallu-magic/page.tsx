@@ -4,11 +4,11 @@ import { Center } from "@react-three/drei";
 import Link from "next/link";
 
 const images = [
-  "/images/ACM-App.png",
-  "/images/ACM-Web.png",
-  "/images/TCET.jpeg",
-  "/images/hero.jpg",
-  "/images/Jt_Tech.jpg",
+  "/images/Mallu_Magic/1.png",
+  "/images/Mallu_Magic/2.png",
+  "/images/Mallu_Magic/3.png",
+  "/images/Mallu_Magic/4.png",
+  "/images/Mallu_Magic/5.png",
 ];
 
 export default function MalluMagicPage() {

@@ -1,76 +1,156 @@
 "use client";
 
-import { Center } from "@react-three/drei";
 import Link from "next/link";
 
 const images = [
   "/images/ACM-App.png",
-  "/images/ACM-Web.png",
-  "/images/TCET.jpeg",
-  "/images/hero.jpg",
-  "/images/Jt_Tech.jpg",
+  "/images/ACM-App.png",
+  "/images/ACM-App.png",
+  "/images/ACM-App.png",
+  "/images/ACM-App.png",
 ];
 
 export default function MalluMagicPage() {
   return (
-    <main className="page">
-      <h1 className="title">ACM App</h1>
+    <main
+      style={{
+        minHeight: "100vh",
+        padding: "1.5rem",
+        display: "flex",
+        flexDirection: "column",
+        gap: "1.5rem",
+      }}
+    >
+      <h1 style={{ textAlign: "center", fontSize: "7rem", fontWeight: 600 }}>
+        ACM App
+      </h1>
 
-      <div className="font-size-2xl">
-        <h1>My Work: </h1>
-      </div>
+      {/* MAIN ROW */}
+      <section
+        style={{
+          display: "grid",
+          gridTemplateColumns: "360px 1fr",
+          gap: "1.5rem",
+          alignItems: "stretch",
+        }}
+      >
+        <div
+          style={{
+            height: "100vh",
+            borderRadius: "16px",
+            overflow: "hidden",
+            background: "rgb(13,74,2)",
+          }}
+        >
+          <Link
+            href="https://sigai-documentation.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <iframe
+              src="https://sigai-qr-app.vercel.app/"
+              title="QR App"
+              loading="lazy"
+              style={{
+                width: "100%",
+                height: "100%",
+                border: "none",
+              }}
+            />
+          </Link>
+        </div>
 
-        <section className="iframeWrapper">
-        <Link href="https://ims-frontend-nu.vercel.app/" target="_blank" rel="noopener noreferrer" className="iframeLink">
-        <iframe
-          src="https://ims-frontend-nu.vercel.app/"
-          title="Mallu Magic Frame"
-          loading="lazy"
-        />=
-        </Link>
-      </section>
+        {/* RIGHT: TEXT + MARQUEE (COLUMN) */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1.25rem",
+            height: "100%",
+          }}
+        >
+          {/* TEXT CARD */}
+          <div
+            style={{
+              background: "rgb(98,129,65)",
+              borderRadius: "18px",
+              padding: "2rem",
+            }}
+          >
+            <h2 style={{ fontSize: "2.4rem", fontWeight: 700, fontFamily: 'serif' }}>
+              ACM App
+            </h2>
 
-        <section className="parent">
-<div className="left matte-card cutout-card">
-<div className="flex flex-col justify-center space-y-8 font-serif">
-  {/* Section Heading */}
-  <div className="text-foreground dark:text-foreground text-2xl md:text-4xl font-bold max-w-3xl">
-    Hotel Inventory Management System
-  </div>
+            <div style={{ fontSize: "1.4rem", lineHeight: 1.6, marginTop: "1rem" , fontFamily: 'serif'}}>
+              <p>
+                This app makes registering and marking attendance effortless.
+              </p>
+              <p>
+                It keeps everything organized, gives real-time updates.
+              </p>
+              <p>
+                It uses QR codes for quick check-ins at events, making attendance smooth and efficient.
+              </p>
+              <p>
+                <strong>Tech Stack:</strong> Flutter, Node.js, MongoDB,
+                Vercel
+              </p>
+            </div>
+          </div>
 
-  {/* Project Description */}
-  <div className="text-foreground/100-500 dark:text-foreground/100-400 text-lg md:text-2xl max-w-5xl space-y-4">
-    <p>
-      This project is a comprehensive hotel inventory management system designed to optimize stock tracking,
-      batch and expiry monitoring, and automate reorder alerts. It ensures real-time visibility of inventory
-      across multiple hotel branches, reducing manual errors and improving operational efficiency.
-    </p>
-    <p>
-      The system implements end-to-end PR, PO, GRN, and Issue workflows with role-based approvals and
-      audit logs, making it suitable for enterprise-scale operations. It also provides valuation and
-      analytics reports to help management make data-driven decisions.
-    </p>
-    <p>
-      Backend APIs are fully serverless, built using Node.js and MongoDB, and deployed on Vercel: {' '}
-      <a href="https://ims-backend-pied.vercel.app/docs/" target="_blank" className="font-bold underline">
-        View documentation
-      </a>.
-    </p>
-    <p>
-      <strong>Tech Stack:</strong> Next JS, Node.js(Serverless), Express, MongoDB, Vercel
-    </p>
-  </div>
-</div>
-
-</div>
-        <div className="right marquee-container">
-          <div className="marquee">
-            {[...images, ...images].map((src, i) => (
-              <img key={i} src={src} alt="" />
-            ))}
+          {/* MARQUEE */}
+          <div
+            style={{
+              position: "relative",
+              overflow: "hidden",
+              borderRadius: "18px",
+              padding: "1rem",
+              flex: 1,
+              maskImage:
+                "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+              WebkitMaskImage:
+                "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                gap: "16px",
+                width: "max-content",
+                animation: "marqueeX 22s linear infinite",
+              }}
+            >
+              {[...images, ...images].map((src, i) => (
+                <img
+                  key={i}
+                  src={src}
+                  alt=""
+                  style={{
+                    height: "100%",
+                    maxHeight: "220px",
+                    width: "auto",
+                    borderRadius: "14px",
+                    objectFit: "cover",
+                    flexShrink: 0,
+                  }}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
+
+      {/* Scoped animation */}
+      <style jsx>{`
+        @keyframes marqueeX {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-50%);
+          }
+        }
+      `}</style>
     </main>
   );
 }

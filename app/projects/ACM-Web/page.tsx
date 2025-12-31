@@ -11,7 +11,7 @@ const images = [
   "/images/Jt_Tech.jpg",
 ];
 
-export default function MalluMagicPage() {
+export default function ACMWebPage() {
   return (
     <main className="page">
       <h1 className="title">ACM Website</h1>
@@ -21,10 +21,10 @@ export default function MalluMagicPage() {
       </div>
 
         <section className="iframeWrapper">
-        <Link href="https://ims-frontend-nu.vercel.app/" target="_blank" rel="noopener noreferrer" className="iframeLink">
+        <Link href="https://acm-sigai.vercel.app/" target="_blank" rel="noopener noreferrer" className="iframeLink">
         <iframe
-          src="https://ims-frontend-nu.vercel.app/"
-          title="Mallu Magic Frame"
+          src="https://acm-sigai.vercel.app/"
+          title="ACM Website Frame"
           loading="lazy"
         />=
         </Link>
@@ -35,29 +35,19 @@ export default function MalluMagicPage() {
 <div className="flex flex-col justify-center space-y-8 font-serif">
   {/* Section Heading */}
   <div className="text-foreground dark:text-foreground text-2xl md:text-4xl font-bold max-w-3xl">
-    Hotel Inventory Management System
+    ACM Website
   </div>
 
   {/* Project Description */}
   <div className="text-foreground/100-500 dark:text-foreground/100-400 text-lg md:text-2xl max-w-5xl space-y-4">
     <p>
-      This project is a comprehensive hotel inventory management system designed to optimize stock tracking,
-      batch and expiry monitoring, and automate reorder alerts. It ensures real-time visibility of inventory
-      across multiple hotel branches, reducing manual errors and improving operational efficiency.
+I developed the official TCET ACM SIGAI Website, a dynamic platform designed to centralize the chapter's professional events, technical insights, and community innovations. Moving beyond a static architecture, I engineered a data-driven system that utilizes real-time database integration to automate content delivery. This ensures that all event schedules and technical blogs are updated instantaneously, providing a seamless and accurate experience for a high-traffic community of AI enthusiasts.
     </p>
     <p>
-      The system implements end-to-end PR, PO, GRN, and Issue workflows with role-based approvals and
-      audit logs, making it suitable for enterprise-scale operations. It also provides valuation and
-      analytics reports to help management make data-driven decisions.
+The project focuses on scalability and professional utility, offering a centralized hub for both upcoming initiatives and historical archives. By optimizing the user interface for technical information and community engagement, I established a robust digital touchpoint that streamlines communication between students, faculty, and industry professionals. This platform not only showcases the team's innovations but also serves as a reliable resource for fostering AI-driven collaboration.
     </p>
     <p>
-      Backend APIs are fully serverless, built using Node.js and MongoDB, and deployed on Vercel: {' '}
-      <a href="https://ims-backend-pied.vercel.app/docs/" target="_blank" className="font-bold underline">
-        View documentation
-      </a>.
-    </p>
-    <p>
-      <strong>Tech Stack:</strong> Next JS, Node.js(Serverless), Express, MongoDB, Vercel
+      <strong>Tech Stack:</strong> Next JS, Node.js(Serverless), MongoDB, Vercel
     </p>
   </div>
 </div>
