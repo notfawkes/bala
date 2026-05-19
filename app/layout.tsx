@@ -17,10 +17,10 @@ const myFont = localFont({
 
 export const metadata = {
   title: "Bala Sudalaimuthu",
-  description: "Personal ortfolio",
+  description: "Personal Portfolio",
   openGraph: {
-    title: "Bala Portfolio",
-    description: "Personal Portfolio",
+    title: "Bala • AI Application Engineer",
+    description: "Building AI systems, RAG applications, developer tools, and scalable full-stack products using Next.js, FastAPI, and modern GenAI infrastructure.",
     images: [
       {
         url: "/og-image.jpg",

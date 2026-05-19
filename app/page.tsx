@@ -11,6 +11,7 @@ import {LinkPreview} from "./components/ui/LinkPreview";
 import { HandWrittenTitle } from "./components/HandwrittenTitle";
 import { Timeline } from "./components/ui/TimelineEntry";
 import Image from "next/image";
+import { Analytics } from '@vercel/analytics/next';
 import { HoverSlider,
   HoverSliderImage,
   HoverSliderImageWrap,
@@ -221,7 +222,7 @@ function ExperienceHeading() {
 
   const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1]);
   const opacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
-
+<Analytics />
   return (
     <div
       ref={wrapperRef}
