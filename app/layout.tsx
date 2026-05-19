@@ -17,6 +17,18 @@ const myFont = localFont({
 
 export const metadata = {
   title: "Bala Sudalaimuthu",
+  description: "Personal ortfolio",
+  openGraph: {
+    title: "Bala Portfolio",
+    description: "Personal Portfolio",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
